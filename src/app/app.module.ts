@@ -9,6 +9,7 @@ import { MainComponent } from './layout/main/main.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HomeComponent } from './home/home.component';
+import { MapsComponent } from './maps/maps.component';
 
 
 const appRoute: Routes = [
@@ -18,7 +19,12 @@ const appRoute: Routes = [
     children:[{
       path : '',
       component:HomeComponent
-    }]
+    },
+    {
+      path : 'maps',
+      component:MapsComponent
+    }
+    ]
   },
 ];
 
@@ -28,14 +34,17 @@ const appRoute: Routes = [
     MainComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    MapsComponent
   ],
   imports: [
     RouterModule.forRoot(
       appRoute,
       { enableTracing: true }
     ),
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
