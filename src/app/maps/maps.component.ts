@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 declare var google: any;
 
@@ -10,15 +11,20 @@ declare var google: any;
 export class MapsComponent implements OnInit {
 	@ViewChild('map') mapElement: ElementRef;
 	map: any;
-	constructor() { }
+	constructor() {
+		// this.loadMap();
+	}
 
 	ngOnInit() {
-		this.loadMap();
+		setTimeout(()=>{
+			this.loadMap();
+		}, 3000);
 	}
 
 	loadMap()
 	{
 		let latLng = new google.maps.LatLng(-6.548, 106.945);
+		// let latLng = {lat:-6.548, lng:106.945};
 		let mapOptions = {
 			center: latLng,
 			zoom: 15,
@@ -26,26 +32,7 @@ export class MapsComponent implements OnInit {
 		};
 		// init maps
 		this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-	}
-	runAutoCompleteAlamat()
-	{
-	// this just for angular desktop
-	  var input = document.getElementById('address');
-	var options = {componentRestrictions: {country: 'id'}};
-	var autocomplete = new google.maps.places.Autocomplete(input, options);
-
-	autocomplete.addListener('place_changed', () =>{
-	      var place = autocomplete.getPlace();
-	      // this.setAlamatPengirim(place.formatted_address);
-	      // this.user = place.formatted_address;
-	      console.log(place.name);
-	      console.log(place.geometry.location.lat());
-
-	      if (!place.geometry) {
-	        alert("No details available for input: '" + place.name + "'");
-	      return;
-	    }
-	    });
+		let marker = new google.maps.Marker({position: latLng, map: this.map});
 	}
 
 }
